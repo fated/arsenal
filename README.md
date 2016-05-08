@@ -12,6 +12,8 @@ and more readability. Currently, it is capable to assert the exception itself, t
 exception and the cause of the exception. The expectations are using Hamcrest matchers, which provide
 extendability on building complex matchers.
 
+[![Build Status](https://travis-ci.org/fated/arsenal.svg?branch=master)](https://travis-ci.org/fated/arsenal)
+
 ### Usage
 
 The following is a simple example that uses this package to assert throwable.
