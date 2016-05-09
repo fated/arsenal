@@ -1,6 +1,8 @@
 package com.brucechou.arsenal.test.assertion;
 
+import static com.brucechou.arsenal.test.assertion.ThrowableCauseMatcher.hasCause;
 import static com.brucechou.arsenal.test.assertion.ThrowableCauseTypeMatcher.isClass;
+import static com.brucechou.arsenal.test.assertion.ThrowableMessageMatcher.hasMessage;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.notNullValue;
@@ -248,7 +250,7 @@ public class ThrowableAssertion {
      * @return the assertion itself
      */
     public ThrowableAssertion expectMessage(Matcher<String> matcher) {
-        return expect(ThrowableMessageMatcher.hasMessage(matcher));
+        return expect(hasMessage(matcher));
     }
 
     /**
@@ -265,7 +267,7 @@ public class ThrowableAssertion {
      * @return the assertion itself
      */
     public ThrowableAssertion expectNoCause() {
-        return expect(ThrowableCauseMatcher.hasCause(nullValue(Throwable.class)));
+        return expect(hasCause(nullValue(Throwable.class)));
     }
 
     /**
@@ -303,7 +305,7 @@ public class ThrowableAssertion {
      * @return the assertion itself
      */
     public ThrowableAssertion expectCause(Matcher<? extends Throwable> matcher) {
-        return expect(allOf(notNullValue(), ThrowableCauseMatcher.hasCause(matcher)));
+        return expect(allOf(notNullValue(), hasCause(matcher)));
     }
 
 }
