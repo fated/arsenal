@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/fated/arsenal.svg?branch=master)](https://travis-ci.org/fated/arsenal)
 [![Coverage Status](https://coveralls.io/repos/github/fated/arsenal/badge.svg?branch=master)](https://coveralls.io/github/fated/arsenal?branch=master)
+[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://opensource.org/licenses/MIT)
 
 ArsenalAssertion allows you to explicitly verify that your code throws a specific exception or does
 not throw any exception.
