@@ -1,5 +1,8 @@
 # A lightweight throwable assertion lib - ArsenalAssertion
 
+[![Build Status](https://travis-ci.org/fated/arsenal.svg?branch=master)](https://travis-ci.org/fated/arsenal)
+[![Coverage Status](https://coveralls.io/repos/github/fated/arsenal/badge.svg?branch=master)](https://coveralls.io/github/fated/arsenal?branch=master)
+
 ArsenalAssertion allows you to explicitly verify that your code throws a specific exception or does
 not throw any exception.
 
@@ -11,8 +14,6 @@ Expectations on the exception could be easily added via chained method, which pr
 and more readability. Currently, it is capable to assert the exception itself, the message of the
 exception and the cause of the exception. The expectations are using Hamcrest matchers, which provide
 extendability on building complex matchers.
-
-[![Build Status](https://travis-ci.org/fated/arsenal.svg?branch=master)](https://travis-ci.org/fated/arsenal)
 
 ### Usage
 
