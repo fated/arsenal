@@ -99,6 +99,32 @@ public class ThrowableAssertionTest extends Assert {
     }
 
     @Test
+    public void testExtractFromOuterException() throws Exception {
+        assertThrown(() -> throwSomething(cause))
+                .extractFrom(RuntimeException.class)
+                .expect(IllegalArgumentException.class)
+                .expectMessage(errorMessage)
+                .expectNoCause();
+    }
+
+    @Test
+    public void testExtractFromMismatchException() throws Exception {
+        exception.expect(AssertionError.class);
+        assertThrown(() -> throwSomething(cause))
+                .extractFrom(IllegalArgumentException.class)
+                .expect(IllegalArgumentException.class)
+                .expectMessage(errorMessage)
+                .expectNoCause();
+    }
+
+    @Test
+    public void testExtractFromWithNoCause() throws Exception {
+        exception.expect(RuntimeException.class);
+        assertThrown(this::throwSomethingWithoutCause)
+                .extractFrom(RuntimeException.class);
+    }
+
+    @Test
     public void testExpectTypeAssertionError() throws Exception {
         exception.expect(AssertionError.class);
         assertThrown(this::throwSomethingWithoutCause)

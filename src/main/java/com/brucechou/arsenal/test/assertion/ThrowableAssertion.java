@@ -11,6 +11,8 @@ import static org.hamcrest.Matchers.nullValue;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 
+import java.util.Objects;
+
 /**
  * The {@code ThrowableAssertion} allows you to verify that your code throws a specific exception.
  *
@@ -111,8 +113,14 @@ public class ThrowableAssertion {
 
     private final Throwable caught;
 
-    private ThrowableAssertion(Throwable caught) {
-        this.caught = caught;
+    /**
+     * instantiate a throwable assertion object, require a non-null throwable.
+     *
+     * @param caught a throwable needs to be asserted
+     * @throws NullPointerException if a null value is passed in
+     */
+    private ThrowableAssertion(Throwable caught) throws NullPointerException {
+        this.caught = Objects.requireNonNull(caught, "Throwable caught should not be null!");
     }
 
     /**
@@ -177,6 +185,21 @@ public class ThrowableAssertion {
      */
     public static void assertNotThrow(ExceptionThrower exceptionThrower) {
         assertNotThrow(null, exceptionThrower);
+    }
+
+    /**
+     * Extract cause of current caught throwable as a new throwable assertion if the type equals to specific type.
+     * This is useful when asserting reflection method invoking, since it is usually wrapped with exception.
+     *
+     * @param type the type of throwable that needs to be extracted
+     * @return a new throwable assertion of the cause if the type is matched, otherwise return the original one
+     * @throws NullPointerException if current caught throwable does not have cause
+     */
+    public ThrowableAssertion extractFrom(Class<? extends Throwable> type) throws NullPointerException {
+        if (Objects.equals(caught.getClass(), type)) {
+            return new ThrowableAssertion(caught.getCause());
+        }
+        return this;
     }
 
     /**
