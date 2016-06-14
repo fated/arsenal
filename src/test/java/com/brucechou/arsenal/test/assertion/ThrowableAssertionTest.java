@@ -1,6 +1,7 @@
 package com.brucechou.arsenal.test.assertion;
 
 import static com.brucechou.arsenal.test.assertion.ThrowableAssertion.assertNotThrow;
+import static com.brucechou.arsenal.test.assertion.ThrowableAssertion.assertThrowable;
 import static com.brucechou.arsenal.test.assertion.ThrowableAssertion.assertThrown;
 import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.nullValue;
@@ -96,6 +97,20 @@ public class ThrowableAssertionTest extends Assert {
     @Test
     public void testAssertionSuccessForNotThrow() throws Exception {
         assertNotThrow(this::throwNothing);
+    }
+
+    @Test
+    public void testAssertThrowableWithNullValue() throws Exception {
+        exception.expect(NullPointerException.class);
+        assertThrowable(null);
+    }
+
+    @Test
+    public void testAssertThrowableSuccess() throws Exception {
+        assertThrowable(cause)
+                .expect(IllegalArgumentException.class)
+                .expectMessage(errorMessage)
+                .expectNoCause();
     }
 
     @Test

@@ -114,7 +114,7 @@ public class ThrowableAssertion {
     private final Throwable caught;
 
     /**
-     * instantiate a throwable assertion object, require a non-null throwable.
+     * Instantiate a throwable assertion object, require a non-null throwable.
      *
      * @param caught a throwable needs to be asserted
      * @throws NullPointerException if a null value is passed in
@@ -124,7 +124,7 @@ public class ThrowableAssertion {
     }
 
     /**
-     * Asserts that an {@link ExceptionThrower} satisfies all following expectations. If it doesn't,
+     * Assert that an {@link ExceptionThrower} satisfies all following expectations. If it doesn't,
      * it throws an {@link MissingExceptionAssertionError} with message.
      *
      * @param message the identifying message for the {@link MissingExceptionAssertionError}
@@ -147,7 +147,7 @@ public class ThrowableAssertion {
     }
 
     /**
-     * Asserts that an {@link ExceptionThrower} satisfies all following expectations. If it doesn't,
+     * Assert that an {@link ExceptionThrower} satisfies all following expectations. If it doesn't,
      * it throws an {@link MissingExceptionAssertionError} with default message.
      *
      * @param exceptionThrower exceptionThrower to be checked
@@ -158,7 +158,7 @@ public class ThrowableAssertion {
     }
 
     /**
-     * Asserts explicitly that an {@link ExceptionThrower} does not throw any throwable. If it does,
+     * Assert explicitly that an {@link ExceptionThrower} does not throw any throwable. If it does,
      * it throws an {@link UnexpectedThrowableAssertionError} with message.
      *
      * @param message the identifying message for the {@link UnexpectedThrowableAssertionError}
@@ -178,13 +178,24 @@ public class ThrowableAssertion {
     }
 
     /**
-     * Asserts explicitly that an {@link ExceptionThrower} does not throw any throwable. If it does,
+     * Assert explicitly that an {@link ExceptionThrower} does not throw any throwable. If it does,
      * it throws an {@link UnexpectedThrowableAssertionError} with message.
      *
      * @param exceptionThrower exceptionThrower to be checked
      */
     public static void assertNotThrow(ExceptionThrower exceptionThrower) {
         assertNotThrow(null, exceptionThrower);
+    }
+
+    /**
+     * Assert that an {@link Throwable} satisfies all following expectations.
+     *
+     * @param caught a throwable needs to be asserted
+     * @return a throwable assertion object contains the caught throwable
+     * @throws NullPointerException if caught is null
+     */
+    public static ThrowableAssertion assertThrowable(Throwable caught) throws NullPointerException {
+        return new ThrowableAssertion(caught);
     }
 
     /**
