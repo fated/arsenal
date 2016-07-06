@@ -158,6 +158,38 @@ public class ThrowableAssertion {
     }
 
     /**
+     * Assert explicitly that an {@link ExceptionThrowerWithResult} does not throw any throwable. If it does,
+     * it throws an {@link UnexpectedThrowableAssertionError} with message.
+     *
+     * @param message the identifying message for the {@link UnexpectedThrowableAssertionError}
+     *     (<code>null</code> okay)
+     * @param exceptionThrower exceptionThrower to be checked
+     * @return the value of the operation
+     */
+    public static <R> R assertNotThrow(String message, ExceptionThrowerWithResult<R> exceptionThrower) {
+        try {
+            return exceptionThrower.throwThrowable();
+        } catch (Throwable caught) {
+            if (message != null && !message.trim().isEmpty()) {
+                throw new UnexpectedThrowableAssertionError(message, caught);
+            } else {
+                throw new UnexpectedThrowableAssertionError(caught);
+            }
+        }
+    }
+
+    /**
+     * Assert explicitly that an {@link ExceptionThrowerWithResult} does not throw any throwable. If it does,
+     * it throws an {@link UnexpectedThrowableAssertionError} with message.
+     *
+     * @param exceptionThrower exceptionThrower to be checked
+     * @return the value of the operation
+     */
+    public static <R> R assertNotThrow(ExceptionThrowerWithResult<R> exceptionThrower) {
+        return assertNotThrow(null, exceptionThrower);
+    }
+
+    /**
      * Assert explicitly that an {@link ExceptionThrower} does not throw any throwable. If it does,
      * it throws an {@link UnexpectedThrowableAssertionError} with message.
      *
@@ -166,15 +198,10 @@ public class ThrowableAssertion {
      * @param exceptionThrower exceptionThrower to be checked
      */
     public static void assertNotThrow(String message, ExceptionThrower exceptionThrower) {
-        try {
+        assertNotThrow(message, () -> {
             exceptionThrower.throwThrowable();
-        } catch (Throwable caught) {
-            if (message != null && !message.trim().isEmpty()) {
-                throw new UnexpectedThrowableAssertionError(message, caught);
-            } else {
-                throw new UnexpectedThrowableAssertionError(caught);
-            }
-        }
+            return null;
+        });
     }
 
     /**

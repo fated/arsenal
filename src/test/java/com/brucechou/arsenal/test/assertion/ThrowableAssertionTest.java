@@ -100,6 +100,11 @@ public class ThrowableAssertionTest extends Assert {
     }
 
     @Test
+    public void testAssertionSuccessForNotThrowWithReturn() throws Exception {
+        assertEquals(errorMessage, assertNotThrow(this::throwNothingWithReturn));
+    }
+
+    @Test
     public void testAssertThrowableWithNullValue() throws Exception {
         exception.expect(NullPointerException.class);
         assertThrowable(null);
@@ -197,6 +202,11 @@ public class ThrowableAssertionTest extends Assert {
 
     private void throwNothing() {
         // this method throws nothing
+    }
+
+    private String throwNothingWithReturn() {
+        // this method throws nothing
+        return errorMessage;
     }
 
     private void throwSomethingWithoutCause() throws Throwable {
