@@ -161,6 +161,7 @@ public class ThrowableAssertion {
      * Assert explicitly that an {@link ExceptionThrowerWithResult} does not throw any throwable. If it does,
      * it throws an {@link UnexpectedThrowableAssertionError} with message.
      *
+     * @param <R> type of return value
      * @param message the identifying message for the {@link UnexpectedThrowableAssertionError}
      *     (<code>null</code> okay)
      * @param exceptionThrower exceptionThrower to be checked
@@ -182,6 +183,7 @@ public class ThrowableAssertion {
      * Assert explicitly that an {@link ExceptionThrowerWithResult} does not throw any throwable. If it does,
      * it throws an {@link UnexpectedThrowableAssertionError} with message.
      *
+     * @param <R> type of return value
      * @param exceptionThrower exceptionThrower to be checked
      * @return the value of the operation
      */
