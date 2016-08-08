@@ -19,6 +19,7 @@ public class ThrowableMessageMatcher<T extends Throwable> extends TypeSafeMatche
         this.matcher = matcher;
     }
 
+    @Override
     public void describeTo(Description description) {
         description.appendText("exception with message ");
         description.appendDescriptionOf(matcher);

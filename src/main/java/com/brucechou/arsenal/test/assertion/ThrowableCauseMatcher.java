@@ -19,6 +19,7 @@ public class ThrowableCauseMatcher<T extends Throwable> extends TypeSafeMatcher<
         this.causeMatcher = causeMatcher;
     }
 
+    @Override
     public void describeTo(Description description) {
         description.appendText("exception with cause ");
         description.appendDescriptionOf(causeMatcher);

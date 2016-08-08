@@ -20,6 +20,7 @@ public class ThrowableCauseTypeMatcher<T> extends TypeSafeMatcher<T> {
         this.equalMatcher = Matchers.equalTo(type);
     }
 
+    @Override
     public void describeTo(Description description) {
         description.appendText("of exact type ");
         description.appendDescriptionOf(equalMatcher);
