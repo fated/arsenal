@@ -6,7 +6,7 @@ package com.brucechou.arsenal.test.assertion;
  * @param <R> type of return value
  */
 @FunctionalInterface
-public interface ExceptionThrowerWithResult<R> {
+public interface ThrowerWithResult<R> {
 
     R throwThrowable() throws Throwable;
 

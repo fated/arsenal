@@ -14,7 +14,7 @@ import org.hamcrest.MatcherAssert;
 import java.util.Objects;
 
 /**
- * The {@code ThrowableAssertion} allows you to verify that your code throws a specific exception.
+ * The {@link ThrowableAssertion} allows you to verify that your code throws a specific exception or not.
  *
  * <h3>Usage</h3>
  *
@@ -58,9 +58,9 @@ import java.util.Objects;
  * </pre>
  *
  * <p>You can use {@code assertThrown} in your test just like other assertions in JUnit. You can add your testing
- * code as parameter. {@code ExceptionThrower} is a {@code @FunctionalInterface} which instances can be created with
+ * code as parameter. {@code Thrower} is a {@code @FunctionalInterface} which instances can be created with
  * lambda expressions, method references, or constructor references. {@code assertThrown} accepting
- * {@code ExceptionThrower} will expect and be ready to handle an exception.
+ * {@code Thrower} will expect and be ready to handle an exception.
  *
  * <p>After specifying the type of the expected exception your test is successful when such an exception
  * is thrown and it fails if a different or no exception is thrown.
@@ -106,7 +106,7 @@ import java.util.Objects;
  * <h3>Missing Exceptions</h3>
  *
  * <p>By default missing exceptions are reported with an error message like "Expected exception was not thrown.".
- * You can configure a different message by means of {@link #assertThrown(String, ExceptionThrower)}.
+ * You can configure a different message by means of {@link #assertThrown(String, Thrower)}.
  * (see {@code throwsNothing()}).
  */
 public class ThrowableAssertion {
@@ -124,17 +124,17 @@ public class ThrowableAssertion {
     }
 
     /**
-     * Assert that an {@link ExceptionThrower} satisfies all following expectations. If it doesn't,
+     * Assert that an {@link Thrower} satisfies all following expectations. If it doesn't,
      * it throws an {@link MissingExceptionAssertionError} with message.
      *
      * @param message the identifying message for the {@link MissingExceptionAssertionError}
-     *     (<code>null</code> okay)
-     * @param exceptionThrower exceptionThrower to be checked
+     *        (<code>null</code> okay)
+     * @param thrower thrower to be checked
      * @return a throwable assertion object contains the caught throwable
      */
-    public static ThrowableAssertion assertThrown(String message, ExceptionThrower exceptionThrower) {
+    public static ThrowableAssertion assertThrown(String message, Thrower thrower) {
         try {
-            exceptionThrower.throwThrowable();
+            thrower.throwThrowable();
         } catch (Throwable caught) {
             return new ThrowableAssertion(caught);
         }
@@ -147,29 +147,29 @@ public class ThrowableAssertion {
     }
 
     /**
-     * Assert that an {@link ExceptionThrower} satisfies all following expectations. If it doesn't,
+     * Assert that an {@link Thrower} satisfies all following expectations. If it doesn't,
      * it throws an {@link MissingExceptionAssertionError} with default message.
      *
-     * @param exceptionThrower exceptionThrower to be checked
+     * @param thrower thrower to be checked
      * @return a throwable assertion object contains the caught throwable
      */
-    public static ThrowableAssertion assertThrown(ExceptionThrower exceptionThrower) {
-        return assertThrown(null, exceptionThrower);
+    public static ThrowableAssertion assertThrown(Thrower thrower) {
+        return assertThrown(null, thrower);
     }
 
     /**
-     * Assert explicitly that an {@link ExceptionThrowerWithResult} does not throw any throwable. If it does,
+     * Assert explicitly that an {@link ThrowerWithResult} does not throw any throwable. If it does,
      * it throws an {@link UnexpectedThrowableAssertionError} with message.
      *
      * @param <R> type of return value
      * @param message the identifying message for the {@link UnexpectedThrowableAssertionError}
-     *     (<code>null</code> okay)
-     * @param exceptionThrower exceptionThrower to be checked
+     *        (<code>null</code> okay)
+     * @param thrower exceptionThrower to be checked
      * @return the value of the operation
      */
-    public static <R> R assertNotThrow(String message, ExceptionThrowerWithResult<R> exceptionThrower) {
+    public static <R> R assertNotThrow(String message, ThrowerWithResult<R> thrower) {
         try {
-            return exceptionThrower.throwThrowable();
+            return thrower.throwThrowable();
         } catch (Throwable caught) {
             if (message != null && !message.trim().isEmpty()) {
                 throw new UnexpectedThrowableAssertionError(message, caught);
@@ -180,40 +180,40 @@ public class ThrowableAssertion {
     }
 
     /**
-     * Assert explicitly that an {@link ExceptionThrowerWithResult} does not throw any throwable. If it does,
+     * Assert explicitly that an {@link ThrowerWithResult} does not throw any throwable. If it does,
      * it throws an {@link UnexpectedThrowableAssertionError} with message.
      *
      * @param <R> type of return value
      * @param exceptionThrower exceptionThrower to be checked
      * @return the value of the operation
      */
-    public static <R> R assertNotThrow(ExceptionThrowerWithResult<R> exceptionThrower) {
+    public static <R> R assertNotThrow(ThrowerWithResult<R> exceptionThrower) {
         return assertNotThrow(null, exceptionThrower);
     }
 
     /**
-     * Assert explicitly that an {@link ExceptionThrower} does not throw any throwable. If it does,
+     * Assert explicitly that an {@link Thrower} does not throw any throwable. If it does,
      * it throws an {@link UnexpectedThrowableAssertionError} with message.
      *
      * @param message the identifying message for the {@link UnexpectedThrowableAssertionError}
-     *     (<code>null</code> okay)
-     * @param exceptionThrower exceptionThrower to be checked
+     *        (<code>null</code> okay)
+     * @param thrower thrower to be checked
      */
-    public static void assertNotThrow(String message, ExceptionThrower exceptionThrower) {
+    public static void assertNotThrow(String message, Thrower thrower) {
         assertNotThrow(message, () -> {
-            exceptionThrower.throwThrowable();
+            thrower.throwThrowable();
             return null;
         });
     }
 
     /**
-     * Assert explicitly that an {@link ExceptionThrower} does not throw any throwable. If it does,
+     * Assert explicitly that an {@link Thrower} does not throw any throwable. If it does,
      * it throws an {@link UnexpectedThrowableAssertionError} with message.
      *
-     * @param exceptionThrower exceptionThrower to be checked
+     * @param thrower thrower to be checked
      */
-    public static void assertNotThrow(ExceptionThrower exceptionThrower) {
-        assertNotThrow(null, exceptionThrower);
+    public static void assertNotThrow(Thrower thrower) {
+        assertNotThrow(null, thrower);
     }
 
     /**
