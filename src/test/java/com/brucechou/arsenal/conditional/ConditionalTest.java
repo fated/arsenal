@@ -15,7 +15,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public class ConditionalReturnTest extends Assert {
+public class ConditionalTest extends Assert {
 
     @Rule
     public ExpectedException expected = ExpectedException.none();
