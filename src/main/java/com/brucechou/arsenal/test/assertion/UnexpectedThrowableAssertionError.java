@@ -6,7 +6,7 @@ package com.brucechou.arsenal.test.assertion;
  */
 public class UnexpectedThrowableAssertionError extends AssertionError {
 
-    private static String defaultMessage = "Unexpected exception was thrown: ";
+    private static final String DEFAULT_MESSAGE = "Unexpected exception was thrown: ";
 
     /**
      * create a new exception with default message.
@@ -14,7 +14,7 @@ public class UnexpectedThrowableAssertionError extends AssertionError {
      * @param cause the unexpected exception
      */
     public UnexpectedThrowableAssertionError(Throwable cause) {
-        this(defaultMessage, cause);
+        this(DEFAULT_MESSAGE, cause);
     }
 
     /**
