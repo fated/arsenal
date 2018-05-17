@@ -69,7 +69,7 @@ import java.util.Objects;
  * expected exception based on other criteria, too:
  *
  * <ul>
- *   <li>The exception's message contains a specific text: {@link #expectMessage(String)}</li>
+ *   <li>The exception's message contains a specific text: {@link #expectMessage(String, Object...)}</li>
  *   <li>The exception's message complies with a Hamcrest matcher: {@link #expectMessage(Matcher)}</li>
  *   <li>The exception's cause complies with a Hamcrest matcher: {@link #expectCause(Matcher)}</li>
  *   <li>The exception has no cause: {@link #expectNoCause()}</li>
@@ -291,11 +291,12 @@ public class ThrowableAssertion {
      * }
      * </pre>
      *
-     * @param subString expected text contained in the message of the exception
+     * @param messageFmt expected text contained in the message format of the exception
+     * @param messageArgs expected error message arguments
      * @return the assertion itself
      */
-    public ThrowableAssertion expectMessage(String subString) {
-        return expectMessage(containsString(subString));
+    public ThrowableAssertion expectMessage(String messageFmt, Object... messageArgs) {
+        return expectMessage(containsString(String.format(messageFmt, messageArgs)));
     }
 
     /**

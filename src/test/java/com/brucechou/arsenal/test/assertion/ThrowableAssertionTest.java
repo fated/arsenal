@@ -119,6 +119,17 @@ public class ThrowableAssertionTest extends Assert {
     }
 
     @Test
+    public void testAssertThrowableSuccessWithMessageFmt() throws Exception {
+        String msgFmt = "Test %s Message";
+        String msgArg = "Error";
+
+        assertThrowable(cause)
+                .expect(IllegalArgumentException.class)
+                .expectMessage(msgFmt, msgArg)
+                .expectNoCause();
+    }
+
+    @Test
     public void testExtractFromOuterException() throws Exception {
         assertThrown(() -> throwSomething(cause))
                 .extractFrom(RuntimeException.class)
